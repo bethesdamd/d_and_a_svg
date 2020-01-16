@@ -34,13 +34,10 @@ dwg.defs.add(dwg.style(STYLES))
 g = dwg.g()
 dwg.add(g)
 
-def read_csv():
-	with open('data.csv', newline='', encoding='utf-8-sig') as csvfile:
-	    reader = csv.DictReader(csvfile)
-	    for row in reader:
-	        print(row['Firm'])
 
-read_csv()
+def read_csv(filename):
+	f = open(filename, newline='', encoding='utf-8-sig')
+	return csv.DictReader(f)
 
 data = [{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
 		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
@@ -68,7 +65,7 @@ data = [{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'I
 x = ORIGIN[0]
 y = ORIGIN[1]
 i = 0
-for d in data:
+for d in read_csv('data.csv'):
 	mod = i % 3
 	if i > 0:
 		if mod > 0:
