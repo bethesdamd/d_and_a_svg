@@ -1,11 +1,5 @@
 Get image filenames from dropbox
-For experiment with Dochter SVG
+For experiment with D&A SVG
 
 
-Dropbox credentials
-Dropbox app name: dochter_images
-
-app key: 5sa3f4z0me23jjm
-app secret: i5puzty99mp3uye
-access token: sl.ASgJJZyBjlnD8CWgedWlUEQM_wwIb7_upthkawWMR9T05v9x90lwA1Fvl6agwnfacdyzyZlszMxJISVviM-5YYZUsTNnT5rfh4m3qkAfK6a472UvgroZrX6sp0-DWHDs5DfhPgb0
-
+SEE LOCAL MACHINE FOR VARIOUS CREDENTIALS IN secrets.txt
