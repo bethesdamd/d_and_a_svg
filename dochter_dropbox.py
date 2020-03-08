@@ -1,7 +1,7 @@
 # Generate a Dochter "availabity report" programmatically which should save them alot of time
 # over whatever manual process they are using now.
 # This code creates a local svg file as its output.  View SVG files in a browser.
-# Hopefully the SVG can be imported into InDesign.  Or, I can print to a pdf file from the 
+# Hopefully the SVG can be imported into InDesign.  Or, I can print to a pdf file from the
 # browser and then Logan can insert the pdf in a report?  Ask her.
 # Better approach.  Use dropbox images, but only in a LOCAL folder that is synced to Dropbox.
 # That way, the images are still available to the team, but I don't have to figure out what
@@ -16,13 +16,13 @@ from svgwrite import cm
 BOX_SIZE = (7.6,1.9)
 BOX_SPACING = (8.2, 2.0)
 ORIGIN = (1,1)
-IMAGE_OFFSET = (-0.4,0)
+IMAGE_OFFSET = (-0.0,0)
 LOGO_SIZE = (2,2)
-LOGO_OFFSET = (4.0, 0.2)
+LOGO_OFFSET = (3.7, 0.2)
 TEXT1_OFFSET = (5.7,0.55)
 TEXT2_OFFSET = (5.7,0.75)
-TEXT3_OFFSET = (4.1,1.8)
-IMAGE_SIZE = (4.0,1.9)
+TEXT3_OFFSET = (3.9,1.8)
+IMAGE_SIZE = (3.2,1.9)
 
 STYLES = """
     .textbox_style {stroke-width:1.0; stroke:lightgray; fill:none}
@@ -34,33 +34,9 @@ dwg.defs.add(dwg.style(STYLES))
 g = dwg.g()
 dwg.add(g)
 
-
 def read_csv(filename):
 	f = open(filename, newline='', encoding='utf-8-sig')
 	return csv.DictReader(f)
-
-data = [{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'athleta', 'locale': 'Washington, DC Region', 'industry': 'Int\'l Financial Institution', 'sf': '1,000 -2,000 SF'}, 
-		{'company': 'b', 'locale': 'Washington, DC Region', 'industry': 'Specialty Cycling Retailer', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'c', 'locale': 'Washington, DC Region', 'industry': 'Indoor Climbing Gyms for Adults and Kids', 'sf': '2,500 - 3,000 SF'},
-		{'company': 'd', 'locale': 'DC/Baltimore Region', 	'industry': 'Luxury Designer Lingerie and Accessories', 'sf': '4,000 SF'}]
 
 x = ORIGIN[0]
 y = ORIGIN[1]
@@ -77,7 +53,7 @@ for d in read_csv('data.csv'):
 	group.add(dwg.rect(insert=(x*cm,y*cm), size=(BOX_SIZE[0]*cm, BOX_SIZE[1]*cm), stroke='red', fill='white'))
 	image_x = x + IMAGE_OFFSET[0]
 	image_y = y + IMAGE_OFFSET[1]
-	group.add(Image("images/athleta.png", insert=(image_x*cm, image_y*cm), size=(IMAGE_SIZE[0]*cm,  IMAGE_SIZE[1]*cm)))
+	group.add(Image("images/" + d['company'].lower() + ".png", insert=(image_x*cm, image_y*cm), size=(IMAGE_SIZE[0]*cm,  IMAGE_SIZE[1]*cm)))
 
 	logo_x = x + LOGO_OFFSET[0]
 	logo_y = y + LOGO_OFFSET[1]
@@ -103,4 +79,3 @@ for d in read_csv('data.csv'):
 
 # write svg file to disk
 dwg.save()
-
